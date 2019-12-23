@@ -34,17 +34,17 @@ class Sql extends PDO {    // PDO classe nativa do sistema  PHP
     } 
 
     // para reutilizar por outros métodos que necessitem dos parametros
-    private function setParams($statment, $parameters=array()){  //vai receber o statment e os dados
+    private function setParams($statement, $parameters=array()){  //vai receber o statment e os dados
      
         foreach ($parameters as $key => $value){
-            $this ->setParam($key, $value);
+            $this ->setParam($statement, $key, $value);
         }
 
     }
 
     // para fazer um bind de um parametro não precisa passar todos os dados, apenas chave e valor obrigatórios
-    private function setParam($statment, $key, $value){ 
-        $statment ->bindParam($key, $value);
+    private function setParam($statement, $key, $value){ 
+        $statement ->bindParam($key, $value);
     }
 
     
