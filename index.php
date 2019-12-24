@@ -25,10 +25,23 @@
 //echo json_encode($search);
 
 //Carrega um usuário usando o login e a senha
-$usuario = new Usuario();
-$usuario->login("Rita","99858");
-echo $usuario;
+//$usuario = new Usuario();
+//$usuario->login("Rita","99858");
+//echo $usuario;
 
+/* // Insert de um usuário novo
+$aluno = new Usuario("aluno", "12334");   // aqui utilizando o método construtor
+//$aluno->setDeslogin("aluno");
+//$aluno->setDessenha("12345");
+$aluno->insert();   //pra salvar no banco, o insert traz o id e a data de cadastro via Procedure
+echo $aluno;
+ */
+
+ // Update de um registro  carrega pelo loadById e atualiza com o método update()
+ $usuario = new Usuario();
+ $usuario->loadById(8);
+ $usuario->update("alunoAtual","999998");
+ echo $usuario;
 
 
 
