@@ -59,9 +59,52 @@ class Usuario {
     
     }
 
+    public static function getList(){  //vantagem desse método ser static não preciso estanciar esse objeto
+       $sql = new Sql();
+       return $results = $sql->select("SELECT * FROM tb_usuarios ORDER BY deslogin;");     
 
+
+    }
+
+    public static function search($login){  //vantagem desse método ser static não preciso estanciar esse objeto
+        $sql = new Sql();
+        return $sql->select("SELECT * FROM tb_usuarios WHERE deslogin LIKE :SEARCH ORDER BY deslogin", array(
+            ':SEARCH'=>"%".$login."%"
+        ));     
+ 
+     }
+
+      public function login($login, $password){  // obter os dados do usuário autenticad passando o login e senha
+                                                   // como será usado os gets e setters para poder definir no contexto do objeto não pode ser static  
+                                                   // pq não vai usar o $this , amarrar na classe
+    
+
+
+        $sql = new Sql();          
+       
+        $results = $sql->select("SELECT * FROM tb_usuarios WHERE deslogin = :LOGIN AND dessenha = :PASSWORD", array(
+                 ":LOGIN"=>$login,
+                 ":PASSWORD"=>$password ));  
+                                           
+
+
+
+
+        if (count($results) > 0){
+            $row = $results[0];
+            
+            $this->setIdusuario($row['idusuario']);
+            $this->setDeslogin($row['deslogin']);
+            $this->setDessenha($row['dessenha']);
+            $this->setDtcadastro(new DateTime($row['dtcadastro']));  //classe DateTime construtor que vai estanciar a classe coloca já no padrão de data e hora
+        }else{
+
+           throw new Exception("Login e/ou senha inválidos");
+        }
+     }
+ 
     // método __toString() quando dá um echo no objeto , não mostra a estrutura do objeto e sim executa o que estiver dentro desse método
-
+ 
     public function __toString(){
          return json_encode(array(     // com os nomes q queremos que exiba
                "idusuario"=>$this->getIdusuario(),
