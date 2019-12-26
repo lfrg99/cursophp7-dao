@@ -37,12 +37,18 @@ $aluno->insert();   //pra salvar no banco, o insert traz o id e a data de cadast
 echo $aluno;
  */
 
- // Update de um registro  carrega pelo loadById e atualiza com o método update()
+/*  // Update de um registro  carrega pelo loadById e atualiza com o método update()
  $usuario = new Usuario();
  $usuario->loadById(8);
  $usuario->update("alunoAtual","999998");
- echo $usuario;
+ echo $usuario; */
 
+  // Delete de um registro  
+  $usuario = new Usuario();
+  $usuario->loadById(4);
+  $usuario->delete();
+
+  echo $usuario;
 
 
  ?>

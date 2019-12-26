@@ -160,9 +160,25 @@ class Usuario {
     ));
   }
 
+  public function delete(){
 
+     
+    $sql = new Sql();
+       
+    $sql->query("DELETE FROM tb_usuarios WHERE idusuario = :ID", array(    
+        ":ID"=>$this->getIdusuario() 
+       ));
 
-     // método construtor - parametros com as vazias não vai dar erro caso não passe os parametros
+       //após apagar do banco refletir no objeto zerando completamente
+
+       $this->setIdusuario(0);
+       $this->setDeslogin("");
+       $this->setDessenha("");
+       $this->setDtcadastro(new DateTime());
+
+    }
+      
+      // método construtor - parametros com as vazias não vai dar erro caso não passe os parametros
      public function __construct($login="", $password=""){
         $this->setDeslogin($login);
         $this->setDessenha($password);
